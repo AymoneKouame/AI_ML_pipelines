@@ -22,15 +22,34 @@ pip install pandas numpy matplotlib seaborn scikit-learn imbalanced-learn google
 
 ## Quick Start
 
-```python
+```
 from insurance_fraud_detector import InsuranceFraudDetector
 
-# Initialize with local CSV file
+# Initialize
+## with local CSV file or Google Cloud Storage File
 detector = InsuranceFraudDetector(
-    data_filepath='fraud_data.csv',
+    data_filepath='fraud_data.csv' #or 'gs://gc_bucket_id/data/fraud_data.csv',
     target_column='is_fraud'
 )
 
+## Or with a SQL query to collect data from Google BigQuery
+insurance_claims_df = pd.read_parquet('fraud_data.parquet')
+detector = InsuranceFraudDetector(
+            service_account_filepath = 'windy-smoke-420803-05e83bb28a9b.json' #if required
+            , project_id = 'bigquery-public-data', dataset_name = 'fhir_synthea'
+            , data_query = '''SELECT * FROM claims'''
+            , target_column='is_fraud')
+)
+
+## Or with a dataframe
+insurance_claims_df = pd.read_parquet('fraud_data.parquet')
+detector = InsuranceFraudDetector(
+    data_frame=insurance_claims_df,
+    target_column='is_fraud'
+)
+```
+
+```
 # Run complete pipeline
 results, best_model, report, plots = detector.run_complete_pipeline()
 ```
