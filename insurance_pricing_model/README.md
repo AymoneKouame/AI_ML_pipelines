@@ -33,6 +33,5 @@ Input Data (15 variables)
 **Target Variable**
 Annual Insurance Premium: The price we charge each DSP
 
-
 **Model Results**
 <img width="732" height="430" alt="image" src="https://github.com/user-attachments/assets/2f69485d-7eff-4375-8f9a-69348a81bf68" />
